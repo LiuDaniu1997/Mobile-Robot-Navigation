@@ -1,0 +1,6 @@
+**/install
+**/build
+**/log*
+**/.vscode
+**/src/mrobot_vo
+**/src/mrobot_bt

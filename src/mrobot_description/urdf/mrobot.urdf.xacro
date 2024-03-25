@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="mrobot" xmlns:xacro="http://ros.org/wiki/xacro">
+	<xacro:include filename="mrobot_body_gazebo.xacro"/>
+	<xacro:include filename="mrobot_body_ros2_control.xacro"/>
+	<xacro:include filename="mrobot_body.urdf.xacro"/>
+	<xacro:include filename="mrobot_imu.urdf.xacro"/>
+	<xacro:include filename="mrobot_lidar.urdf.xacro"/>
+	<xacro:include filename="mrobot_rgb_camera.urdf.xacro"/>
+	<!-- <xacro:include filename="mrobot_robotarm/mrobot_robotarm.urdf.xacro"/> -->
+</robot>
