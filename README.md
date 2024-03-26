@@ -53,9 +53,6 @@ git clone
 ```
 2. Build the ROS 2 workspace
 ```sh
-cd ~/Self-Driving-and-ROS-2-Learn-by-Doing-Odometry-Control/Section11_Sensor-Fusion/bumperbot_ws
-```
-```sh
 colcon build
 ```
 3. Source the ROS 2 Workspace

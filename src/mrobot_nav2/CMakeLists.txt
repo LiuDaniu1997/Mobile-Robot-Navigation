@@ -41,7 +41,7 @@ install(
 )
 
 install(
-  DIRECTORY launch maps
+  DIRECTORY launch config
   DESTINATION share/${PROJECT_NAME}
 )
 
