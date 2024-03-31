@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-   <img src="images/cover.png" alt="Cover">
+   <img src="images/demo.gif" alt="Cover">
 </p>
 
 
@@ -43,6 +43,7 @@ sudo apt-get update && sudo apt-get install -y \
      ros-humble-robot-localization \
      ros-humble-tf-transformations
 ```
+* Install [Nav2](https://navigation.ros.org/getting_started/index.html#installation) on your Ubuntu 22.04
 
 <!-- USAGE -->
 ## Usage
@@ -63,6 +64,16 @@ colcon build
 ```sh
 ros2 launch mrobot_bringup mrobot.launch.py
 ```
+To launch Nav2
+1. Open a new terminal and source the ROS2 Workspace
+```sh
+. install/setup.bash
+```
+2. Launch the Nav2
+```sh
+ros2 launch mrobot_nav2 mrobot_nav2.launch.py
+```
+
 <!-- ROADMAP -->
 ## Roadmap
 TODOS:
