@@ -2,12 +2,13 @@
 #define FEATURE_TRACKER_HPP
 
 
-#include "tic_toc.h"
-#include "camera_model/pinhole_camera.hpp"
+#include "mrobot_vio/camera_model/pinhole_camera.hpp"
 
 #include <opencv2/opencv.hpp>
 #include <eigen3/Eigen/Dense>
 #include <memory>
+#include "rclcpp/rclcpp.hpp"
+#include "tic_toc.h"
 
 
 class FeatureTracker
@@ -19,7 +20,7 @@ public:
      * @brief Reading image data for processing,
      * Tracking of feature points using optical flow method on the current frame
     */
-    void readImage(const cv::Mat & img, double curr_time, bool PUB_THIS_FRAME);
+    void readImage(const cv::Mat & img, double cur_time, bool PUB_THIS_FRAME);
 
     /**
      * @brief Using the F-matrix to eliminate outliers
@@ -54,7 +55,7 @@ public:
     std::vector<cv::Point2f> prev_un_pts_, cur_un_pts_;
     std::vector<cv::Point2f> pts_velocity_;
     
-    std::vector<int> ids_;
+    std::vector<int> ids_; // the id of tracked featured points
     std::vector<int> track_cnt_;
     std::map<int, cv::Point2f> prev_un_pts_map_;
     std::map<int, cv::Point2f> cur_un_pts_map_;
@@ -64,12 +65,12 @@ public:
     // set camera model
     std::unique_ptr<PinholeCamera> m_camera = std::make_unique<PinholeCamera>();
     // camera parameter
-    int COL_ = 500; // image height
-    int ROW_ = 500; // iamge width
+    int COL_ = 800; // image height
+    int ROW_ = 800; // iamge width
     int FOCAL_LENGTH_ = 100;
     int MIN_DIST_ = 25;
     double F_THRESHOLD_ = 1.0;
-    int MAX_CNT_ = 200;
+    int MAX_CNT_ = 150;
     // bool PUB_THIS_FRAME_ = false;
 
     static int n_id;

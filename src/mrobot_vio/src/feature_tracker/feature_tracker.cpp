@@ -43,9 +43,10 @@ void FeatureTracker::addPoints()
     }
 }
 
-void FeatureTracker::readImage(const cv::Mat& img, double curr_time, bool PUB_THIS_FRAME)
+void FeatureTracker::readImage(const cv::Mat& img, double cur_time, bool PUB_THIS_FRAME)
 {
     TicToc t_r;
+    cur_time_ = cur_time;
     if(forw_img_.empty())
     {
         prev_img_ = cur_img_ = forw_img_ = img;
@@ -58,7 +59,7 @@ void FeatureTracker::readImage(const cv::Mat& img, double curr_time, bool PUB_TH
     forw_pts_.clear();
     if(cur_pts_.size() > 0)
     {
-        TicToc t_o;
+        // TicToc t_o;
         std::vector<uchar> status;
         std::vector<float> err;
         cv::calcOpticalFlowPyrLK(cur_img_, forw_img_, cur_pts_, forw_pts_, status, err, cv::Size(21, 21), 3);
@@ -90,6 +91,8 @@ void FeatureTracker::readImage(const cv::Mat& img, double curr_time, bool PUB_TH
         // TicToc t_m;
         setMask();
         // ROS Debug
+        // RCLCPP_INFO(rclcpp::get_logger("test mask"), "current mask rows: %d, cols: %d", mask_.rows, mask_.cols);
+        // RCLCPP_INFO(rclcpp::get_logger("test mask"), "forward image rows: %d, cols: %d", forw_img_.rows, forw_img_.cols);
 
         // detect feature begins
         // TicToc t_t;
@@ -97,11 +100,14 @@ void FeatureTracker::readImage(const cv::Mat& img, double curr_time, bool PUB_TH
         if (n_max_cnt > 0)
         {
             if(mask_.empty())
-                std::cout << "mask is empty " << std::endl;
+                // std::cout << "empty mask " << std::endl;
+                RCLCPP_WARN(rclcpp::get_logger("test mask"), "empty mask");
             if (mask_.type() != CV_8UC1)
-                std::cout << "mask type wrong " << std::endl;
+                // std::cout << "mask type wrong " << std::endl;
+                RCLCPP_WARN(rclcpp::get_logger("test mask"), "mask type wrong");
             if (mask_.size() != forw_img_.size())
-                std::cout << "wrong size " << std::endl;
+                // std::cout << "wrong size " << std::endl;
+                RCLCPP_WARN(rclcpp::get_logger("test mask"), "wrong size ");
             cv::goodFeaturesToTrack(forw_img_, n_pts_, MAX_CNT_ - forw_pts_.size(), 0.01, MIN_DIST_, mask_);
         }
         else
@@ -153,6 +159,7 @@ void FeatureTracker::rejectWithF()
         reduceVector(cur_un_pts_, status);
         reduceVector(ids_, status);
         reduceVector(track_cnt_, status);
+        RCLCPP_INFO(rclcpp::get_logger("feature tracker"), "FM ransac: %d -> %lu: %f", size_a, forw_pts_.size(), 1.0 * forw_pts_.size() / size_a);
     }
 }
 
@@ -255,7 +262,7 @@ void FeatureTracker::showUndistortion(const std::string & name)
         }
     }
 
-    for (int i = 0; i < undistortedp.size(); i++)
+    for (int i = 0; i < int(undistortedp.size()); i++)
     {
         cv::Mat pp(3, 1, CV_32FC1);
         pp.at<float>(0, 0) = undistortedp[i].x() * FOCAL_LENGTH_ + COL_ / 2;

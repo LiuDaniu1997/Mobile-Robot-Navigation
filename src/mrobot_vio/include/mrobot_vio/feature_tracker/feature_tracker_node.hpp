@@ -5,7 +5,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"
-#include "nav_msgs/msg/odometry.hpp"
+#include "sensor_msgs/msg/point_cloud.hpp"
 #include <cv_bridge/cv_bridge.h>
 
 
@@ -25,11 +25,16 @@ private:
     int pub_count_ = 1;
 
     bool PUB_THIS_FRAME_ = false;
-
     // Frequency
     int FREQ_ = 10;
 
-    cv::Mat curr_image_;
+    // publish the feature points
+    bool init_pub_ = false;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud>::SharedPtr feature_points_pub_;
+
+    // show feature points
+    bool SHOW_TRACK_ = true;
+    rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr matches_img_pub_;
 };
 
 #endif

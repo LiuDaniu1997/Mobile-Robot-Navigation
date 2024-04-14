@@ -1,4 +1,4 @@
-#include "camera_model/pinhole_camera.hpp"
+#include "mrobot_vio/camera_model/pinhole_camera.hpp"
 
 PinholeCamera::PinholeCamera()
 {
