@@ -6,5 +6,4 @@
 	<xacro:include filename="mrobot_imu.urdf.xacro"/>
 	<xacro:include filename="mrobot_lidar.urdf.xacro"/>
 	<xacro:include filename="mrobot_rgb_camera.urdf.xacro"/>
-	<!-- <xacro:include filename="mrobot_robotarm/mrobot_robotarm.urdf.xacro"/> -->
 </robot>

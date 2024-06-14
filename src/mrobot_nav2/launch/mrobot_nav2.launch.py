@@ -22,7 +22,7 @@ def generate_launch_description():
         launch_arguments={
             'use_sim_time': use_sim_time,
             'autostart': autostart,
-            'map': os.path.join(map_path, 'maps', 'small_house', 'map.yaml')
+            'map': os.path.join(map_path, 'maps', 'small_warehouse', 'map.yaml')
         }.items()
     )
 

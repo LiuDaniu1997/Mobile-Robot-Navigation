@@ -1,4 +1,5 @@
 from launch import LaunchDescription
+from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.substitutions import FindPackageShare
@@ -18,8 +19,15 @@ def generate_launch_description():
         PythonLaunchDescriptionSource([FindPackageShare("mrobot_localization"), '/launch', '/mrobot_localization.launch.py'])
     )
     
+    move_mrobot = Node(
+        package="mrobot_nav2",
+        executable="move_mrobot",
+        name="move_mrobot"
+    )
+
     return LaunchDescription([
         gazebo_simulation_launch,
         mrobot_controller_launch,
         mrobot_localization_launch,
+        move_mrobot
     ])
