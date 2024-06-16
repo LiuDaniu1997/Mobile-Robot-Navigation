@@ -20,14 +20,6 @@ ament_target_dependencies(
   rclcpp geometry_msgs tf2
 )
 
-add_executable(
-  move_mrobot src/move_mrobot.cpp
-)
-ament_target_dependencies(
-  move_mrobot
-  rclcpp geometry_msgs
-)
-
 install(
   DIRECTORY include
   DESTINATION include
@@ -36,7 +28,6 @@ install(
 install(
   TARGETS
   set_init_amcl_pose
-  move_mrobot
   DESTINATION lib/${PROJECT_NAME}
 )
 

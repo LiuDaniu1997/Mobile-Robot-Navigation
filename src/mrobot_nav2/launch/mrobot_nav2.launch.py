@@ -10,7 +10,8 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     pkg_nav2_dir = get_package_share_directory('nav2_bringup')
-    map_path = get_package_share_directory('mrobot_mapping')
+    map_file = os.path.join(get_package_share_directory('mrobot_mapping'), 'maps', 'small_warehouse', 'map.yaml')
+    nav2_yaml_config = os.path.join(get_package_share_directory('mrobot_nav2'), 'config', 'amcl_config.yaml')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     autostart = LaunchConfiguration('autostart', default='True')
@@ -22,7 +23,8 @@ def generate_launch_description():
         launch_arguments={
             'use_sim_time': use_sim_time,
             'autostart': autostart,
-            'map': os.path.join(map_path, 'maps', 'small_warehouse', 'map.yaml')
+            # 'params_file': nav2_yaml_config, 
+            'map': map_file
         }.items()
     )
 
@@ -43,20 +45,14 @@ def generate_launch_description():
         executable="set_init_amcl_pose",
         name="set_init_amcl_pose",
         parameters=[{
-            "x": 0.0,
-            "y": 0.0,
+            "x": 6.0,
+            "y": 2.17,
+            "theta": -3.14
         }],
-    )
-
-    move_mrobot = Node(
-        package="mrobot_nav2",
-        executable="move_mrobot",
-        name="move_mrobot"
     )
 
     return LaunchDescription([
         nav2_launch,
         rviz_launch,
-        set_init_amcl_pose,
-        move_mrobot
+        set_init_amcl_pose
     ])

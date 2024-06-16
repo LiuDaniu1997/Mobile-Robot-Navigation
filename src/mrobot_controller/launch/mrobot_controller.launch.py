@@ -13,6 +13,13 @@ def generate_launch_description():
         ],
     )
 
+    move_mrobot = Node(
+        package="mrobot_controller",
+        executable="move_mrobot",
+        name="move_mrobot"
+    )
+
     return LaunchDescription([
         wheel_controller_spawner,
+        move_mrobot
     ])
