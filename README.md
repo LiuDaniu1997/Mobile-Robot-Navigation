@@ -1,5 +1,4 @@
 # Mobile Robot Navigation
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -90,17 +89,6 @@ TODOS:
 Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 
-<!-- CONTACT -->
-## Contact
-
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 * [Nav2](https://navigation.ros.org/index.html)
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/kai-liu-27749017b/
