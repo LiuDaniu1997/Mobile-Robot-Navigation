@@ -1,7 +1,8 @@
 <root BTCPP_format="4" >
     <BehaviorTree ID="MainTree">
         <Sequence name="root_sequence">
-            <GoToPose name="go_to_pose"/>
+            <GoToPose name="go_to_pose" goal="1.78; 2.17; -3.14"/>
+            <GoToPose name="go_to_pose" goal="1.78; -9; -1.57"/>
         </Sequence>
      </BehaviorTree>
  </root>

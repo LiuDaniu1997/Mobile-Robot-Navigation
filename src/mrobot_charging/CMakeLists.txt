@@ -9,6 +9,10 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(behaviortree_cpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(nav2_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 include_directories(include)
 
@@ -19,7 +23,7 @@ add_executable(
 )
 ament_target_dependencies(
   bt_ros_node
-  rclcpp behaviortree_cpp
+  rclcpp behaviortree_cpp rclcpp_action nav2_msgs tf2 tf2_geometry_msgs
 )
 
 install(

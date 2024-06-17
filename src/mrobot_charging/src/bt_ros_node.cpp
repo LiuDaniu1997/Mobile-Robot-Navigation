@@ -13,7 +13,7 @@ void BTRosNode::setup()
 {
     // create behavior tree
     BT::BehaviorTreeFactory factory;
-    factory.registerNodeType<GoToPose>("GoToPose");
+    factory.registerNodeType<GoToPose>("GoToPose", shared_from_this());
     tree_ = factory.createTreeFromFile(bt_xml_dir + "/tree.xml");
     
     // create timer
