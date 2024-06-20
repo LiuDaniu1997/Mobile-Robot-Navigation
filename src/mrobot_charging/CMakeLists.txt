@@ -30,6 +30,7 @@ add_executable(
   bt_ros_node 
   src/bt_ros_node.cpp
   src/charging_behaviors.cpp
+  src/marker_detector_node.cpp
 )
 ament_target_dependencies(
   bt_ros_node
