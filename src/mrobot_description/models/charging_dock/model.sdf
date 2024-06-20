@@ -28,11 +28,8 @@
             <size>0.35 0.35 0.50</size>
           </box>
         </geometry>
-        <material> 
-          <ambient>0.1 0.1 0.1 1</ambient>
-          <diffuse>0.1 0.1 0.1 1</diffuse>
-          <specular>0 0 0 0</specular>
-          <emissive>0 0 0 1</emissive>
+        <material name="White"> 
+          <color rgba="1 1 1 1.0"/>
         </material> 
       </visual>
      </link>
@@ -42,7 +39,7 @@
         <geometry>
           <mesh>
             <uri>model://charging_dock/meshes/Marker0.dae</uri>
-	    <scale>0.4 0.4 0.4</scale>
+	          <scale>0.4 0.4 0.4</scale>
           </mesh>
         </geometry>
       </visual>

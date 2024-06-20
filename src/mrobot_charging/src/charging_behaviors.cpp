@@ -44,7 +44,7 @@ BT::NodeStatus GoToPose::onStart()
     auto res = getInput<Pose2D>("goal");
     if( !res )
     {
-        RCLCPP_INFO(rclcpp::get_logger("charging_behavior"), "Can't find the goal...\n");
+        RCLCPP_INFO(rclcpp::get_logger("charging_behavior"), "Can't find the goal...");
         throw BT::RuntimeError("error reading port [target]:", res.error());
     }
     goal_ = res.value();
@@ -67,7 +67,7 @@ BT::NodeStatus GoToPose::onStart()
     // send pose
     done_flag_ = false;
     action_client_ptr_->async_send_goal(goal_msg, send_goal_options);
-    RCLCPP_INFO(rclcpp::get_logger("charging_behavior"), "Sent Goal: x: %f, y: %f to Nav2\n", goal_.x, goal_.y);
+    RCLCPP_INFO(rclcpp::get_logger("charging_behavior"), "Sent Goal: x: %f, y: %f to Nav2", goal_.x, goal_.y);
     return BT::NodeStatus::RUNNING;
 }
 

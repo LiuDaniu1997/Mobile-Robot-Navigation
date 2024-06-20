@@ -1641,7 +1641,7 @@
     </light>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-5.45717 7.99443 8.49746 0 0.518239 -0.883646</pose>
+        <pose>-0.19194 -6.10981 2.90564 0 0.566239 -1.05564</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -1664,7 +1664,7 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-    <model name='Charging Dock'>
+    <model name='Charging Dock With ArUco'>
       <static>1</static>
       <link name='docking_station_link'>
         <pose>0 0 0.25 0 -0 0</pose>
@@ -1706,8 +1706,8 @@
             </box>
           </geometry>
           <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
             <specular>0 0 0 0</specular>
             <emissive>0 0 0 1</emissive>
           </material>
@@ -1716,21 +1716,36 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <link name='artag_link'>
-        <pose>0.18 0 0.1 0 -0 0</pose>
+      <link name='aruco_marker_link'>
+        <pose>0.18 0 0.28 -9.3e-05 1.57079 3.14159</pose>
         <visual name='visual'>
           <geometry>
-            <mesh>
-              <uri>model://charging_dock/meshes/Marker0.dae</uri>
-              <scale>0.4 0.4 0.4</scale>
-            </mesh>
+            <box>
+              <size>0.2 0.2 1e-05</size>
+            </box>
           </geometry>
+          <material>
+            <script>
+              <uri>model://charging_dock_with_aruco/materials/scripts</uri>
+              <uri>model://charging_dock_with_aruco/materials/textures</uri>
+              <name>ArucoVisualMarker1/Marker</name>
+            </script>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0 0 0 1</specular>
+            <emissive>1 1 1 0</emissive>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
         </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose>1.78 -10.1 0 0 -0 1.5708</pose>
+      <pose>1.75 -10.2 0 0 -0 1.5708</pose>
     </model>
   </world>
 </sdf>
