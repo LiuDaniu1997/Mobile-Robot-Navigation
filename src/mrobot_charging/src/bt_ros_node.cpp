@@ -148,7 +148,7 @@ void BTRosNode::imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
                 // computeRPY(Q);
                 geometry_msgs::msg::TransformStamped t;
                 t.header.stamp = get_clock()->now();
-                t.header.frame_id = "camera_link";
+                t.header.frame_id = "camera_depth_frame";
                 t.child_frame_id = "aruco_marker";
                 t.transform.translation.x = tvecs[i][0];
                 t.transform.translation.y = tvecs[i][1];
