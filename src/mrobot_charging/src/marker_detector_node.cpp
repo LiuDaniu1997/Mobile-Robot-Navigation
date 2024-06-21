@@ -1,7 +1,7 @@
 #include "mrobot_charging/marker_detector_node.hpp"
 
 using std::placeholders::_1;
-#define PI 3.14
+#define PI 3.14159265
 
 
 MarkerDetectorNode::MarkerDetectorNode(const std::string &nodeName) : Node(nodeName)
@@ -23,6 +23,8 @@ MarkerDetectorNode::MarkerDetectorNode(const std::string &nodeName) : Node(nodeN
 
     // transform broadcaster
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
+
+    pos_publisher_ = this->create_publisher<mrobot_msgs::msg::ChargingStationPosition>("/charging_station_position", 10);
 }
 
 void MarkerDetectorNode::imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
@@ -67,6 +69,13 @@ void MarkerDetectorNode::imageCallback(const sensor_msgs::msg::Image::SharedPtr 
                 t.transform.rotation = pose_msg.orientation;
                 
                 tf_broadcaster_->sendTransform(t);
+
+                // calMarkerPosition(t);
+                // auto charging_station_position = mrobot_msgs::msg::ChargingStationPosition();
+                // charging_station_position.distance = distance_;
+                // charging_station_position.angle = angle_;
+                // charging_station_position.orientation = orientation_;
+                // pos_publisher_->publish(charging_station_position);
                 // RCLCPP_INFO(this->get_logger(), "Position of marker: x: %f, y: %f, z: %f", tvecs[i][0], tvecs[i][1], tvecs[i][2]);
             }
         }

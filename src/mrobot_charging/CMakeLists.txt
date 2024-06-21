@@ -15,6 +15,7 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(mrobot_msgs REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
@@ -34,7 +35,7 @@ add_executable(
 )
 ament_target_dependencies(
   bt_ros_node
-  rclcpp behaviortree_cpp rclcpp_action nav2_msgs tf2 tf2_ros OpenCV cv_bridge geometry_msgs tf2_geometry_msgs
+  rclcpp behaviortree_cpp rclcpp_action nav2_msgs tf2 tf2_ros OpenCV cv_bridge geometry_msgs tf2_geometry_msgs mrobot_msgs
 )
 
 install(
