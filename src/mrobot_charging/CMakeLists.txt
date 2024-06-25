@@ -15,7 +15,6 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(mrobot_msgs REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
@@ -27,15 +26,25 @@ find_package(cv_bridge REQUIRED)
 
 include_directories(include)
 
+# add_executable(
+#   bt_ros_node 
+#   src/bt_ros_node.cpp
+#   src/charging_behaviors.cpp
+#   src/marker_detector_node.cpp
+# )
+# ament_target_dependencies(
+#   bt_ros_node
+#   rclcpp behaviortree_cpp rclcpp_action nav2_msgs tf2 tf2_ros OpenCV cv_bridge geometry_msgs tf2_geometry_msgs mrobot_msgs
+# )
+
 add_executable(
-  bt_ros_node 
-  src/bt_ros_node.cpp
-  src/charging_behaviors.cpp
+  autonomous_charging_node
+  src/autonomous_charging_node.cpp
   src/marker_detector_node.cpp
 )
 ament_target_dependencies(
-  bt_ros_node
-  rclcpp behaviortree_cpp rclcpp_action nav2_msgs tf2 tf2_ros OpenCV cv_bridge geometry_msgs tf2_geometry_msgs mrobot_msgs
+  autonomous_charging_node
+  rclcpp tf2 tf2_ros OpenCV cv_bridge geometry_msgs tf2_geometry_msgs
 )
 
 install(
@@ -45,7 +54,7 @@ install(
 
 install(
   TARGETS
-  bt_ros_node
+  autonomous_charging_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

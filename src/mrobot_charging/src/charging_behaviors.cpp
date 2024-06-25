@@ -2,6 +2,7 @@
 
 using namespace std::chrono;
 using namespace std::chrono_literals;
+#define PI 3.14159265
 
 // Template specialization to converts a string to Position2D.
 namespace BT
@@ -97,62 +98,4 @@ void GoToPose::navToPoseCallback(const GoalHandleNav::WrappedResult &result)
   {
     done_flag_ = true;
   }
-}
-
-/*
-********************* Docking to Pose ***********************
-*/
-
-DockingToPose::DockingToPose(const std::string& name, 
-        const BT::NodeConfig& config,
-        rclcpp::Node::SharedPtr node_ptr) 
-    : BT::StatefulActionNode(name, config),
-    node_ptr_(node_ptr)
-{
-    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(node_ptr->get_clock());
-    transform_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
-}
-
-BT::PortsList DockingToPose::providedPorts()
-{
-    return{};
-}
-
-BT::NodeStatus DockingToPose::onStart()
-{
-    return BT::NodeStatus::RUNNING;
-}
-
-/// method invoked by an action in the RUNNING state.
-BT::NodeStatus DockingToPose::onRunning()
-{
-    geometry_msgs::msg::TransformStamped transformStamped;
-    transformStamped = tf_buffer_->lookupTransform("aruco_marker","camera_depth_frame",tf2::TimePointZero);
-    calMarkerPosition(transformStamped);
-    RCLCPP_INFO(rclcpp::get_logger("docking_to_pose"), "distance: %f, angle: %f, orientation: %f", distance_, angle_, orientation_);   
-    return BT::NodeStatus::RUNNING;
-}
-
-void DockingToPose::onHalted()
-{
-}
-
-void DockingToPose::calMarkerPosition(geometry_msgs::msg::TransformStamped & t)
-{
-    double x, y;
-    x = t.transform.translation.x;
-    y = t.transform.translation.y;
-
-    tf2::Quaternion q(
-        t.transform.rotation.x,
-        t.transform.rotation.y,
-        t.transform.rotation.z,
-        t.transform.rotation.w);
-    tf2::Matrix3x3 m(q);
-    double roll, pitch, yaw;
-    m.getRPY(roll, pitch, yaw);
-
-    distance_ = sqrt(x*x + y*y);
-    angle_ = atan(y/x);
-    orientation_ = yaw;
 }

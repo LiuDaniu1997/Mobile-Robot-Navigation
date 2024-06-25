@@ -14,17 +14,21 @@ MarkerDetectorNode::MarkerDetectorNode(const std::string &nodeName) : Node(nodeN
     dictionary_ = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_6X6_250);
 
     // camera parameters
-    float fx = 381.3625;
-    float fy = 381.3625;
-    float cx = 320.5;
-    float cy = 240.5;
+    float fx = 476.7030836014194;
+    float fy = 476.7030836014194;
+    float cx = 400.5;
+    float cy = 400.5;
     camera_matrix_ = (cv::Mat_<float>(3,3)<<fx,0,cx,0,fy,cy,0,0,1);
     dist_coeffs_ = cv::Mat::zeros(8, 1, CV_64F);
 
     // transform broadcaster
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
-
-    pos_publisher_ = this->create_publisher<mrobot_msgs::msg::ChargingStationPosition>("/charging_station_position", 10);
+    // create a transform from camera to aruco_marker
+    geometry_msgs::msg::TransformStamped t;
+    t.header.stamp = get_clock()->now();
+    t.header.frame_id = "camera_depth_frame";
+    t.child_frame_id = "aruco_marker";
+    tf_broadcaster_->sendTransform(t);
 }
 
 void MarkerDetectorNode::imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)

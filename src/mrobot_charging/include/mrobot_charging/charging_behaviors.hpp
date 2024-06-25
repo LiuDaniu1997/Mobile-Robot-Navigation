@@ -46,25 +46,4 @@ private:
     bool done_flag_;
 };
 
-class DockingToPose : public BT::StatefulActionNode
-{
-public:
-    DockingToPose(const std::string& name, 
-        const BT::NodeConfig& config,
-        rclcpp::Node::SharedPtr node_ptr);
-
-    BT::NodeStatus onStart() override;
-    BT::NodeStatus onRunning() override;
-    void onHalted() override;
-
-    static BT::PortsList providedPorts();
-private:
-    rclcpp::Node::SharedPtr node_ptr_;
-    std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
-    std::shared_ptr<tf2_ros::TransformListener> transform_listener_;
-
-    double distance_, angle_, orientation_;
-    void calMarkerPosition(geometry_msgs::msg::TransformStamped & t);
-};
-
 #endif

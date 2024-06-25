@@ -1,55 +1,75 @@
 <?xml version="1.0"?>
 
 <robot name="mrobot" xmlns:xacro="http://ros.org/wiki/xacro">
-    <transmission name="drivewhl_l_transmission">
+    <transmission name="left_wheel_transmission">
         <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="drivewhl_l_motor" role="actuator_drivewhl_l"/>
-        <joint name="drivewhl_l_joint" role="joint_drivewhl_l">
+        <actuator name="left_wheel_motor" role="left_wheel_actuator"/>
+        <joint name="left_wheel_joint" role="joint_left">
             <mechanical_reduction>1.0</mechanical_reduction>
         </joint>
     </transmission>
 
-    <transmission name="drivewhl_r_transmission">
+    <transmission name="right_wheel_transmission">
         <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="drivewhl_r_motor" role="actuator_drivewhl_r"/>
-        <joint name="drivewhl_r_joint" role="joint_drivewhl_r">
+        <actuator name="right_wheel_motor" role="right_wheel_actuator"/>
+        <joint name="right_wheel_joint" role="joint_right">
             <mechanical_reduction>1.0</mechanical_reduction>
         </joint>
     </transmission>
   
-    <gazebo reference="drivewhl_l_link">
-        <mu1>100000000000000.0</mu1>
-        <mu2>100000000000000.0</mu2>
+    <gazebo reference="left_wheel">
+        <mu1>1000000000000000.0</mu1>
+        <mu2>1000000000000000.0</mu2>
         <kp>1000000000000.0</kp>
-        <kd>10.0</kd>
+        <kd>100.0</kd>
+        <maxVel>0.1</maxVel>
+        <fdir1>1 0 0</fdir1>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="right_wheel">
+        <mu1>1000000000000000.0</mu1>
+        <mu2>1000000000000000.0</mu2>
+        <kp>1000000000000.0</kp>
+        <kd>100.0</kd>
         <minDepth>0.001</minDepth>
         <maxVel>0.1</maxVel>
         <fdir1>1 0 0</fdir1>
-        <material>Gazebo/White</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="drivewhl_r_link">
-        <mu1>100000000000000.0</mu1>
-        <mu2>100000000000000.0</mu2>
-        <kp>1000000000000.0</kp>
-        <kd>10.0</kd>
-        <minDepth>0.001</minDepth>
-        <maxVel>0.1</maxVel>
-        <fdir1>1 0 0</fdir1>
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <gazebo reference="front_caster">
+    <gazebo reference="left_caster">
         <mu1>0.1</mu1>
         <mu2>0.1</mu2>
         <kp>1000000.0</kp>
         <kd>100.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="right_caster">
+        <mu1>0.1</mu1>
+        <mu2>0.1</mu2>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="back_caster">
+        <mu1>0.1</mu1>
+        <mu2>0.1</mu2>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <minDepth>0.001</minDepth>
         <maxVel>1.0</maxVel>
         <material>Gazebo/White</material>
     </gazebo>
 
     <gazebo reference="base_link">
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Yellow</material>
     </gazebo>
 
     <gazebo>

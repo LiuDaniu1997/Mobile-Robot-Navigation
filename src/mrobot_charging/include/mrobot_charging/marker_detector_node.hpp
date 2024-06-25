@@ -13,8 +13,6 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-#include "mrobot_msgs/msg/charging_station_position.hpp"
-
 #include <vector>
 
 
@@ -38,10 +36,6 @@ private:
     // broadcaster
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 
-    // publisher for charging station position
-    rclcpp::Publisher<mrobot_msgs::msg::ChargingStationPosition>::SharedPtr pos_publisher_;
-
-    void calMarkerPosition(geometry_msgs::msg::TransformStamped & t);
     float distance_;
     float angle_;
     float orientation_;

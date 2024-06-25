@@ -18,7 +18,6 @@ void BTRosNode::setup()
     // create behavior tree
     BT::BehaviorTreeFactory factory;
     factory.registerNodeType<GoToPose>("GoToPose", shared_from_this());
-    factory.registerNodeType<DockingToPose>("DockingToPose", shared_from_this());
     tree_ = factory.createTreeFromFile(bt_xml_dir + "/tree.xml");
     
     // create timer
@@ -50,15 +49,10 @@ void BTRosNode::updateBehaviorTree()
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
-    auto node1 = std::make_shared<BTRosNode>("behavior_tree_node");
-    auto node2 = std::make_shared<MarkerDetectorNode>("marker_detector_node");
+    auto node = std::make_shared<BTRosNode>("behavior_tree_node");
 
-    node1->setup();
-    rclcpp::executors::MultiThreadedExecutor executor;
-    executor.add_node(node1);
-    executor.add_node(node2);
-
-    executor.spin();
+    node->setup();
+    rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
 }

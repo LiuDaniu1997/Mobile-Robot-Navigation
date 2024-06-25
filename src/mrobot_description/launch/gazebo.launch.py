@@ -22,7 +22,7 @@ def generate_launch_description():
                                     description="Absolute path to robot urdf file")
 
     dec_world_name = DeclareLaunchArgument(name="world_name", default_value="no_roof_small_warehouse")
-    
+
     world_path = PathJoinSubstitution([
             mrobot_description_dir,
             "worlds",
@@ -58,13 +58,13 @@ def generate_launch_description():
     )
 
     spawn_robot = Node(package="gazebo_ros", executable="spawn_entity.py",
-                        arguments=["-entity", "mrobot",
-                            "-topic", "robot_description",
-                            "-x", '6.0',
-                            "-y", '2.17',
-                            "-z", '0.0',
-                            "-Y", '-3.14'],
-                        output="screen"
+        arguments=["-entity", "mrobot",
+            "-topic", "robot_description",
+            "-x", '6.0',
+            "-y", '2.17',
+            "-z", '0.06',
+            "-Y", '-3.14'],
+        output="screen"
     )
 
     joint_state_publisher_node = Node(
