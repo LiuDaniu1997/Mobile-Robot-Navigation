@@ -32,7 +32,9 @@ MarkerDetectorNode::MarkerDetectorNode(const std::string &nodeName) : Node(nodeN
 }
 
 void MarkerDetectorNode::imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
-{
+{ 
+    // rclcpp::Time start_image_time = this->now();
+
     try
     {
         curr_image_ = cv_bridge::toCvShare(msg, "bgr8")->image;
@@ -71,17 +73,19 @@ void MarkerDetectorNode::imageCallback(const sensor_msgs::msg::Image::SharedPtr 
                 t.transform.translation.y = tvecs[i][1];
                 t.transform.translation.z = tvecs[i][2];
                 t.transform.rotation = pose_msg.orientation;
-                
-                tf_broadcaster_->sendTransform(t);
+                // RCLCPP_INFO(this->get_logger(), "x: %f, y: %f, z: %f", tvecs[i][0], tvecs[i][1], tvecs[i][2]);
 
-                // calMarkerPosition(t);
-                // auto charging_station_position = mrobot_msgs::msg::ChargingStationPosition();
-                // charging_station_position.distance = distance_;
-                // charging_station_position.angle = angle_;
-                // charging_station_position.orientation = orientation_;
-                // pos_publisher_->publish(charging_station_position);
-                // RCLCPP_INFO(this->get_logger(), "Position of marker: x: %f, y: %f, z: %f", tvecs[i][0], tvecs[i][1], tvecs[i][2]);
+                tf_broadcaster_->sendTransform(t);
             }
+        }
+        else
+        {
+            geometry_msgs::msg::TransformStamped t;
+            t.header.stamp = get_clock()->now();
+            t.header.frame_id = "camera_depth_frame";
+            t.child_frame_id = "aruco_marker";
+            RCLCPP_INFO(this->get_logger(), "can't detect ArUco marker...");
+            tf_broadcaster_->sendTransform(t);
         }
 
         // show the image
@@ -92,4 +96,18 @@ void MarkerDetectorNode::imageCallback(const sensor_msgs::msg::Image::SharedPtr 
     {
         RCLCPP_ERROR(get_logger(), "cv_bridge exception: %s", e.what());
     }
+
+    // rclcpp::Time end_image_time = this->now();
+    // rclcpp::Duration dt = end_image_time - start_image_time;
+    // RCLCPP_INFO(this->get_logger(), "duration: %f", dt.seconds());
+}
+
+int main(int argc, char **argv)
+{
+    rclcpp::init(argc, argv);
+    auto marker_detector_node = std::make_shared<MarkerDetectorNode>("marker_detector_node");
+
+    rclcpp::spin(marker_detector_node);
+    rclcpp::shutdown();
+    return 0;
 }

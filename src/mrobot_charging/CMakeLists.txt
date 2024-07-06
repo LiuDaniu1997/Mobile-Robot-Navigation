@@ -15,6 +15,8 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
@@ -40,11 +42,19 @@ include_directories(include)
 add_executable(
   autonomous_charging_node
   src/autonomous_charging_node.cpp
-  src/marker_detector_node.cpp
 )
 ament_target_dependencies(
   autonomous_charging_node
-  rclcpp tf2 tf2_ros OpenCV cv_bridge geometry_msgs tf2_geometry_msgs
+  rclcpp tf2 tf2_ros geometry_msgs tf2_geometry_msgs nav_msgs
+)
+
+add_executable(
+  marker_detector_node
+  src/marker_detector_node.cpp
+)
+ament_target_dependencies(
+  marker_detector_node
+  rclcpp sensor_msgs tf2 tf2_ros OpenCV cv_bridge geometry_msgs tf2_geometry_msgs
 )
 
 install(
@@ -55,6 +65,7 @@ install(
 install(
   TARGETS
   autonomous_charging_node
+  marker_detector_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

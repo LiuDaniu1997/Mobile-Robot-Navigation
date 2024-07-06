@@ -1,5 +1,4 @@
-#ifndef MARKER_DETECTOR_NODE_HPP
-#define MARKER_DETECTOR_NODE_HPP
+#pragma once
 
 #include "rclcpp/rclcpp.hpp"
 // cv bridge
@@ -41,4 +40,3 @@ private:
     float orientation_;
     double roll_, yaw_, pitch_;
 };
-#endif
